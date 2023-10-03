@@ -18,10 +18,12 @@ def biglipsmcbot():
             session['user_question'] = request.form.get('user_question')
 
             fixed_question = remove_apostrophes(session['user_question'])
+            print(f"TESTING: This is the fixed question: {fixed_question}")
 
             search_result = search(fixed_question)
 
             url_from_search = get_url_from_search_results(search_result)
+            print(f"TESTING: This is the url for the question: {url_from_search}")
 
             webpage_text = get_webpage_text(url_from_search)
 

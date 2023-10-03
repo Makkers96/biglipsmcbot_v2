@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 import os
-from main import search, get_url_from_search_results, remove_apostrophes, get_webpage_text, run_llm
+from main import search, get_url_from_search_results, remove_apostrophes, get_webpage_text, run_llm, get_q_subjects
 
 app = Flask(__name__)
 app.secret_key = os.getenv('secret_key')
@@ -17,8 +17,10 @@ def biglipsmcbot():
         if 'user_question' in request.form:
             session['user_question'] = request.form.get('user_question')
 
-            fixed_question = remove_apostrophes(session['user_question'])
-            print(f"TESTING: This is the fixed question: {fixed_question}")
+            subjects_question = get_q_subjects(session['user_question'])
+
+            fixed_question = remove_apostrophes(subjects_question)
+            print(f"TESTING: This is the fixed subjects question: {fixed_question}")
 
             search_result = search(fixed_question)
 

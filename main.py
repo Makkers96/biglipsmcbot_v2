@@ -34,36 +34,12 @@ def remove_apostrophes(input_string):
     return input_string.replace("'", "")
 
 
-# def get_webpage_text(url):
-#     request_result = requests.get(url)
-#     soup = BeautifulSoup(request_result.text, 'html.parser')
-#     text = soup.get_text()
-#     return text
-
-
 def get_webpage_text(url):
     request_result = requests.get(url)
     soup = BeautifulSoup(request_result.text, 'html.parser')
-    start_tag = soup.find('h1', {'class': 'firstHeading'})
-    h2_tags = soup.find_all('h2')
+    text = soup.get_text()
+    return text
 
-    end_tag = None
-    for line in h2_tags:
-        if "Related_Patch_Notes" in str(line):
-            end_tag = line
-    print(f"This is endtag after the thing. {end_tag}")
-
-    if start_tag and end_tag:
-        content_tags = []
-        for tag in start_tag.next_elements:
-            if tag == end_tag:
-                break
-            content_tags.append(str(tag))
-
-        html = ''.join(content_tags)
-        return html
-    else:
-        return None
 
 
 def get_q_subjects(question):

@@ -37,8 +37,8 @@ def remove_apostrophes(input_string):
 def get_webpage_text(url):
     request_result = requests.get(url)
     soup = BeautifulSoup(request_result.text, 'html.parser')
-    text = soup.get_text()
-    return text
+    # text = soup.get_text()
+    return soup
 
 
 def get_q_subjects(question):

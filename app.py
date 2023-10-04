@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 import os
 from main import search, get_url_from_search_results, remove_apostrophes, get_webpage_text, run_llm, get_q_subjects
+from test import get_table_html
 
 app = Flask(__name__)
 app.secret_key = os.getenv('secret_key')
@@ -27,7 +28,10 @@ def biglipsmcbot():
             url_from_search = get_url_from_search_results(search_result)
             print(f"TESTING: This is the url for the question: {url_from_search}")
 
-            webpage_text = get_webpage_text(url_from_search)
+            # webpage_text = get_webpage_text(url_from_search)
+
+            # for testing html
+            webpage_text = get_table_html(url_from_search)
 
             session['llm_response'] = run_llm(session['user_question'], webpage_text)
 

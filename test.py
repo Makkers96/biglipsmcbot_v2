@@ -19,30 +19,38 @@ def get_url_from_search_results(search_result):
     return url
 
 
-# def get_webpage_text(url):
-#     request_result = requests.get(url)
-#     soup = BeautifulSoup(request_result.text, 'html.parser')
-#     start_tag = soup.find('h1', {'class': 'firstHeading'})
-#     h2_tags = soup.find_all('h2')
-#
-#     end_tag = None
-#     for line in h2_tags:
-#         if "Related_Patch_Notes" in str(line):
-#             end_tag = line
-#     print(f"This is endtag after the thing. {end_tag}")
-#
-#     if start_tag and end_tag:
-#         content_tags = []
-#         for tag in start_tag.next_elements:
-#             if tag == end_tag:
-#                 break
-#             content_tags.append(str(tag))
-#
-#         html = ''.join(content_tags)
-#         return html
-#     else:
-#         return None
-#     # text = soup.get_text()
+def get_webpage_text(url):
+    request_result = requests.get(url)
+    soup = BeautifulSoup(request_result.text, 'html.parser')
+    # text = soup.get_text()
+    return soup
+
+
+def get_table_html(url):
+    request_result = requests.get(url)
+    soup = BeautifulSoup(request_result.text, 'html.parser')
+
+    table_tags = soup.find_all('table', {'class': 'wikitable'})
+
+    content_tags = []
+    content_tags_str = []
+    patch_tags = []
+
+    # grabbing tables in html
+    for tag in table_tags:
+        if "Patch Link" in str(tag):
+            patch_tags.append(tag)
+        else:
+            content_tags.append(tag)
+            content_tags_str.append(str(tag))
+
+    table_data = ''.join(content_tags_str)
+
+    # grab rest in raw text
+
+
+    return table_data
+
 
 # question = remove_apostrophes("What are the q slot abilities on an expert's mace?")
 # search_ressult = search(question)
@@ -51,6 +59,6 @@ def get_url_from_search_results(search_result):
 # print(url)
 
 
-# text_block = get_webpage_text("https://wiki.albiononline.com/wiki/GvG_Season_11")
+# text_block = get_table_html("https://wiki.albiononline.com/wiki/GvG_Season_11")
 # print(text_block)
 

@@ -41,7 +41,6 @@ def get_webpage_text(url):
     return text
 
 
-
 def get_q_subjects(question):
     prompt = f"""Take the following question and respond with the essential elements or key subject(s). Respond only with these key subject(s).
         
@@ -66,6 +65,7 @@ def get_q_subjects(question):
 
     result = completion.result
     return result
+
 
 def run_llm(user_question, reference_text):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.

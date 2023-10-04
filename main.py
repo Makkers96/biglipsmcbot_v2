@@ -41,6 +41,45 @@ def get_webpage_text(url):
     return text
 
 
+def get_webpage_data(url):
+    request_result = requests.get(url)
+    soup = BeautifulSoup(request_result.text, 'html.parser')
+
+    table_tags = soup.find_all('table', {'class': 'wikitable'})
+
+    content_tags = []
+    content_tags_str = []
+    patch_tags = []
+
+    # grabbing tables in html
+    for tag in table_tags:
+        if "Patch Link" in str(tag):
+            patch_tags.append(tag)
+        else:
+            table_title_tag = tag.find_previous('h2')
+            if table_title_tag:
+                content_tags.append(table_title_tag)
+                content_tags_str.append(str(table_title_tag))
+            content_tags.append(tag)
+            content_tags_str.append(str(tag))
+
+    table_data = ''.join(content_tags_str)
+
+    # grab rest in raw text
+    body = soup.find('body')
+
+    # remove tables from the body
+    for tag in content_tags:
+        tag.decompose()
+
+    # get the text from the body
+    body_text = ""
+    for string in body.stripped_strings:
+        body_text += string + "\n"
+
+    return table_data, body_text
+
+
 def get_q_subjects(question):
     prompt = f"""Take the following question and respond with the essential elements or key subject(s). Respond only with these key subject(s).
         
@@ -67,7 +106,25 @@ def get_q_subjects(question):
     return result
 
 
-def run_llm(user_question, reference_text):
+def read_html_tables(html_tables):
+    prompt = f"""Take the following table(s) in html format, and transcribe them into simple readable text.
+
+        HTML Table(s): {html_tables}
+        
+        Tables as Simple Text:"""
+
+    completion = palm.generate_text(
+        model=model,
+        prompt=prompt,
+        temperature=0.2,
+        max_output_tokens=128,
+    )
+
+    result = completion.result
+    return result
+
+
+def run_llm(user_question, reference_tables, reference_text):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
     If you do not know the answer to the question, provide any helpful information that you can about the question, or simply say that you could not find the answer.
     Respond in full sentences.
@@ -75,7 +132,9 @@ def run_llm(user_question, reference_text):
 
     Question: {user_question}
 
-    Information: {reference_text}
+    Information: 
+    {reference_tables}
+    {reference_text}
 
     Answer:"""
 

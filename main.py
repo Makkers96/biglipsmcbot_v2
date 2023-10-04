@@ -117,7 +117,7 @@ def read_html_tables(html_tables):
         model=model,
         prompt=prompt,
         temperature=0.2,
-        max_output_tokens=128,
+        max_output_tokens=1028,
     )
 
     result = completion.result

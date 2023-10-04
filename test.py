@@ -19,13 +19,6 @@
 #     return url
 #
 #
-# def get_webpage_text(url):
-#     request_result = requests.get(url)
-#     soup = BeautifulSoup(request_result.text, 'html.parser')
-#     # text = soup.get_text()
-#     return soup
-#
-#
 # def get_webpage_data(url):
 #     request_result = requests.get(url)
 #     soup = BeautifulSoup(request_result.text, 'html.parser')
@@ -72,5 +65,5 @@
 # # print(url)
 #
 #
-# # table_html, text_block = get_webpage_data("https://wiki.albiononline.com/wiki/GvG_Season_11")
-# # print(table_html, text_block)
+# table_html, text_block = get_webpage_data("https://wiki.albiononline.com/wiki/GvG_Season_11")
+# print(table_html)

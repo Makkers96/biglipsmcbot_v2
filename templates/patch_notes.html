@@ -15,12 +15,18 @@
         }
         p {
             margin: 0 auto;
+            margin-bottom: 20px;
             width: 50%;
         }
         textarea {
             width: 50%;
-            height: 150px;
+            height: 50px;
             margin-bottom: 10px;
+        }
+        button {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 20px;
         }
         form {
             margin-bottom: 20px;
@@ -28,6 +34,15 @@
         img {
             width: 200px;
             height: 200px;
+        }
+        .bubble {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: inline-block;
+            padding: 20px;
+            position: relative;
+            margin: 20px auto;
         }
     </style>
 </head>
@@ -47,9 +62,11 @@
         <button value="Submit">Send</button>
     </form>
 
-    <h2>Question: {{ user_question }}</h2>
-    <h2>Answer: {{ llm_response }}</h2>
-    <h2>Source: {{ source_link }}</h2>
+    <div class="bubble">
+        <h2>Question: {{ user_question }}</h2>
+        <h2>Answer: {{ llm_response }}</h2>
+        <h2>Source: {{ source_link }}</h2>
+    </div>
 
     <form action="/" method="post">
         <button value="Submit">Go Back Home</button>

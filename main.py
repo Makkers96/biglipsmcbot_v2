@@ -151,7 +151,7 @@ def run_llm_general(user_question, reference_tables, reference_text):
         model=model,
         prompt=prompt,
         temperature=0,
-        max_output_tokens=128,
+        max_output_tokens=512,
     )
 
     result = completion.result
@@ -175,7 +175,7 @@ def run_llm_patch_notes(user_question, patch_data):
         model=model,
         prompt=prompt,
         temperature=0,
-        max_output_tokens=128,
+        max_output_tokens=512,
     )
 
     result = completion.result

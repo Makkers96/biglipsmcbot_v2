@@ -31,7 +31,7 @@ def general():
             url_from_search = get_url_from_search_results(search_result)
             print(f"TESTING: This is the url for the question: {url_from_search}")
 
-            webpage_html_tables, webpage_text = get_webpage_data(url_from_search)
+            webpage_html_tables, webpage_text, patch_details = get_webpage_data(url_from_search)
 
             session['llm_response'] = run_llm_general(session['user_question'], webpage_html_tables, webpage_text)
 

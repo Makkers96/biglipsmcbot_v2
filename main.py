@@ -50,11 +50,17 @@ def get_webpage_data(url):
     content_tags = []
     content_tags_str = []
     patch_tags = []
+    patch_tags_str = []
 
-    # grabbing tables in html
+    # grabbing tables in html, patch notes in plain text
     for tag in table_tags:
         if "Patch Link" in str(tag):
+            patch_title_tag = tag.find_previous('h2')
+            if patch_title_tag:
+                patch_tags.append(patch_title_tag)
+                patch_tags_str.append(str(patch_title_tag))
             patch_tags.append(tag)
+            patch_tags_str.append(str(tag))
         else:
             table_title_tag = tag.find_previous('h2')
             if table_title_tag:
@@ -64,12 +70,14 @@ def get_webpage_data(url):
             content_tags_str.append(str(tag))
 
     table_data = ''.join(content_tags_str)
+    patch_data = ' '.join([tag.get_text() for tag in patch_tags])
+
 
     # grab rest in raw text
     body = soup.find('body')
 
     # remove tables from the body
-    for tag in content_tags:
+    for tag in table_tags:
         tag.decompose()
 
     # get the text from the body
@@ -77,7 +85,7 @@ def get_webpage_data(url):
     for string in body.stripped_strings:
         body_text += string + "\n"
 
-    return table_data, body_text
+    return table_data, body_text, patch_data
 
 
 def get_q_subjects(question):
@@ -98,7 +106,7 @@ def get_q_subjects(question):
     completion = palm.generate_text(
         model=model,
         prompt=prompt,
-        temperature=0.2,
+        temperature=0,
         max_output_tokens=128,
     )
 
@@ -107,7 +115,7 @@ def get_q_subjects(question):
 
 
 def read_html_tables(html_tables):
-    prompt = f"""Take the following table(s) in html format, and transcribe them into simple readable text.
+    prompt = f"""Take the following html table(s), and for each one, transcribe it into simple readable text.
 
         HTML Table(s): {html_tables}
         
@@ -116,35 +124,57 @@ def read_html_tables(html_tables):
     completion = palm.generate_text(
         model=model,
         prompt=prompt,
-        temperature=0.2,
-        max_output_tokens=1028,
+        temperature=0,
+        max_output_tokens=1024,
     )
 
     result = completion.result
     return result
 
 
-def run_llm(user_question, reference_tables, reference_text):
+def run_llm_general(user_question, reference_tables, reference_text):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
     If you do not know the answer to the question, provide any helpful information that you can about the question, or simply say that you could not find the answer.
     Respond in full sentences.
     Use the following information to answer the following question.
 
-    Question: {user_question}
+    User Question: {user_question}
 
     Information: 
-    {reference_tables}
     {reference_text}
+    {reference_tables}
 
-    Answer:"""
+    Big Lips McBot Answer:"""
 
     completion = palm.generate_text(
         model=model,
         prompt=prompt,
-        temperature=0.2,
+        temperature=0,
         max_output_tokens=128,
     )
 
     result = completion.result
     return result
 
+
+def run_llm_patch_notes(user_question, patch_data):
+    prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
+    If you do not know the answer to the question, provide any helpful information that you can about the question, or simply say that you could not find the answer.
+    Respond in full sentences.
+    Use the following information to answer the following question.
+
+    User Question: {user_question}
+
+    Information: {patch_data}
+
+    Big Lips McBot Answer:"""
+
+    completion = palm.generate_text(
+        model=model,
+        prompt=prompt,
+        temperature=0,
+        max_output_tokens=128,
+    )
+
+    result = completion.result
+    return result

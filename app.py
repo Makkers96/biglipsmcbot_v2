@@ -17,6 +17,8 @@ def general():
         session['user_question'] = ""
     if 'llm_response' not in session:
         session['llm_response'] = ""
+    if 'source_link' not in session:
+        session['source_link'] = ""
 
     if request.method == 'POST':
         if 'user_question' in request.form:
@@ -29,6 +31,7 @@ def general():
             search_result = search(fixed_question)
 
             url_from_search = get_url_from_search_results(search_result)
+            session['source_link'] = url_from_search
             print(f"TESTING: This is the url for the question: {url_from_search}")
 
             webpage_html_tables, webpage_text, patch_details = get_webpage_data(url_from_search)
@@ -38,6 +41,7 @@ def general():
     return render_template("general.html",
                            user_question=session['user_question'],
                            llm_response=session['llm_response'],
+                           source_link=session['source_link'],
                            )
 
 
@@ -47,6 +51,8 @@ def patch_notes():
         session['user_question'] = ""
     if 'llm_response' not in session:
         session['llm_response'] = ""
+    if 'source_link' not in session:
+        session['source_link'] = ""
 
     if request.method == 'POST':
         if 'user_question' in request.form:
@@ -59,6 +65,7 @@ def patch_notes():
             search_result = search(fixed_question)
 
             url_from_search = get_url_from_search_results(search_result)
+            session['source_link'] = url_from_search
             print(f"TESTING: This is the url for the question: {url_from_search}")
 
             webpage_html_tables, webpage_text, patch_details = get_webpage_data(url_from_search)
@@ -68,6 +75,7 @@ def patch_notes():
     return render_template("patch_notes.html",
                            user_question=session['user_question'],
                            llm_response=session['llm_response'],
+                           source_link=session['source_link'],
                            )
 
 

@@ -134,7 +134,8 @@ def read_html_tables(html_tables):
 
 def run_llm_general(user_question, reference_tables, reference_text):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
-    If you do not know the answer to the question, provide any helpful information that you can about the question, or simply say that you could not find the answer.
+    If you do not know the answer to the question, provide any helpful information that you can about the question.
+    If the answer cannot be found in the information provided, respond that you cannot find the answer, and ask the user to ask their question in a different way.
     Respond in full sentences.
     Use the following information to answer the following question.
 
@@ -159,7 +160,8 @@ def run_llm_general(user_question, reference_tables, reference_text):
 
 def run_llm_patch_notes(user_question, patch_data):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
-    If you do not know the answer to the question, provide any helpful information that you can about the question, or simply say that you could not find the answer.
+    If you do not know the answer to the question, provide any helpful information that you can about the question.
+    If the answer cannot be found in the information provided, respond that you cannot find the answer, and ask the user to ask their question in a different way.
     Respond in full sentences.
     Use the following information to answer the following question.
 

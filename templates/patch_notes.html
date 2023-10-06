@@ -3,13 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Big Lips McBot Patch Notes</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            color: #000;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #0000cd;
+        }
+        p {
+            margin: 0 auto;
+            width: 50%;
+        }
+        textarea {
+            width: 50%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
 </head>
 <body>
 
+    <img src="https://media.discordapp.net/attachments/255002176701726722/1159936369741791252/evie_prof_pic_r_no_bg.png?ex=6532d5ed&is=652060ed&hm=010a78b2182c7c4cdacaa6970358e3b4bc4be33539606bb71e208aed2b740022&=" alt="Logo">
+
     <h2>Instructions:</h2>
-    <p>Ask any question about albion online patches. The Q/A will appear bellow.</p>
-    <p>For best results, be specific and use correct terminology (eg. Say elder's mace instead of T8 mace).</p>
+    <p>This section is currently being overhauled. Questions about armors work pretty well, questions about weapons or other things do not.</p>
+    <p>Ask any question about albion online. The Q/A will appear bellow.</p>
+    <p>For best results, be specific and use correct terminology (eg. Say elder's mace instead of T8 mace). If you don't get a good answer, try asking in a different way.</p>
     <p>The bot currently has no memory. If you want to ask a followup question, paraphrase the previous question/answer so the bot knows that you're talking about.</p>
+    <p>The bot sometimes hallucinates (makes up answers). Don't rely 100% on the accuracy of the answers.</p>
 
     <form action="/patch_notes" method="post">
         <textarea id="user_question" name="user_question" placeholder="Type your question here..." required></textarea>
@@ -18,6 +49,11 @@
 
     <h2>Question: {{ user_question }}</h2>
     <h2>Answer: {{ llm_response }}</h2>
+    <h2>Source: {{ source_link }}</h2>
+
+    <form action="/" method="post">
+        <button value="Submit">Go Back Home</button>
+    </form>
 
 </body>
 </html>

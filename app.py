@@ -24,7 +24,7 @@ def general():
     if request.method == 'POST':
         if 'user_question' in request.form:
             session['user_question'] = request.form.get('user_question')
-            print(f"TESTING: This is the user's' question.")
+            print(f"TESTING: This is the user's' question. {session['user_question']}")
 
             subjects_question = get_q_subjects(session['user_question'])
 
@@ -69,6 +69,7 @@ def patch_notes():
     if request.method == 'POST':
         if 'user_question' in request.form:
             session['user_question'] = request.form.get('user_question')
+            print(f"TESTING: This is the user's' question. {session['user_question']}")
 
             subjects_question = get_q_subjects(session['user_question'])
 

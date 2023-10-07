@@ -58,6 +58,9 @@
             min-width: 400px;
             max-width: 800px;
         }
+        .error_message {
+            color: #f94449
+        }
     </style>
 </head>
 <body>
@@ -78,7 +81,9 @@
     </form>
 
     {% if error_message %}
-        <h2>{{ error_message }}</h2>
+        <div class="error_message">
+            <h2>{{ error_message }}</h2>
+        </div>
     {% endif %}
 
     <h2>Question:</h2>

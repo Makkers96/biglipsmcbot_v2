@@ -22,7 +22,7 @@
             margin-bottom: 20px;
             width: 70%;
             font-size: 18px;
-            line-height: 6px;
+            line-height: 18px;
         }
         textarea {
             flex-grow: 1;
@@ -76,6 +76,10 @@
             <button value="Submit" class="send_button">Send</button>
         </div>
     </form>
+
+    {% if error_message %}
+        <h2>{{ error_message }}</h2>
+    {% endif %}
 
     <h2>Question:</h2>
     <div class="bubble">

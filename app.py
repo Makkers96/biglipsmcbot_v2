@@ -24,12 +24,22 @@ def general():
     if request.method == 'POST':
         if 'user_question' in request.form:
             session['user_question'] = request.form.get('user_question')
+            print(f"TESTING: This is the user's' question.")
 
             subjects_question = get_q_subjects(session['user_question'])
 
             fixed_question = remove_apostrophes(subjects_question)
 
             search_result = search(fixed_question)
+
+            if search_result is None:
+                error_message = "ERROR: Search resulted in nothing. Please ask about Albion Online."
+                return render_template("general.html",
+                                       error_message=error_message,
+                                       user_question=session['user_question'],
+                                       llm_response=session['llm_response'],
+                                       source_link=session['source_link'],
+                                       )
 
             url_from_search = get_url_from_search_results(search_result)
             session['source_link'] = url_from_search
@@ -65,6 +75,15 @@ def patch_notes():
             fixed_question = remove_apostrophes(subjects_question)
 
             search_result = search(fixed_question)
+
+            if search_result is None:
+                error_message = "ERROR: Search resulted in nothing. Please ask about Albion Online."
+                return render_template("general.html",
+                                       error_message=error_message,
+                                       user_question=session['user_question'],
+                                       llm_response=session['llm_response'],
+                                       source_link=session['source_link'],
+                                       )
 
             url_from_search = get_url_from_search_results(search_result)
             session['source_link'] = url_from_search

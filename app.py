@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, Markup
 import os
 from main import search, get_url_from_search_results, remove_apostrophes, get_webpage_text, run_llm_general, get_q_subjects, \
     read_html_tables, get_webpage_data, run_llm_patch_notes
@@ -37,6 +37,7 @@ def general():
             webpage_html_tables, webpage_text, patch_details = get_webpage_data(url_from_search)
 
             session['llm_response'] = run_llm_general(session['user_question'], webpage_html_tables, webpage_text)
+            session['llm_response'] = Markup(session['llm_response'])
 
     return render_template("general.html",
                            user_question=session['user_question'],
@@ -71,6 +72,7 @@ def patch_notes():
             webpage_html_tables, webpage_text, patch_details = get_webpage_data(url_from_search)
 
             session['llm_response'] = run_llm_patch_notes(session['user_question'], patch_details)
+            session['llm_response'] = Markup(session['llm_response'])
 
     return render_template("patch_notes.html",
                            user_question=session['user_question'],

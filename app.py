@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, session, Markup
+from flask import Flask, render_template, request, session
+from markupsafe import Markup
 import os
 from main import search, get_url_from_search_results, remove_apostrophes, get_webpage_text, run_llm_general, get_q_subjects, \
     read_html_tables, get_webpage_data, run_llm_patch_notes

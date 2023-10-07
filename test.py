@@ -48,6 +48,10 @@ def get_webpage_data(url):
             content_tags_str.append(str(tag))
 
     table_data = ''.join(content_tags_str)
+    # if table data too much, chop off the end.
+    if len(table_data) >= 20000:
+        table_data = table_data[:20000]
+
     patch_data = ' '.join([tag.get_text() for tag in patch_tags])
 
 
@@ -73,5 +77,6 @@ def get_webpage_data(url):
 # print(url)
 
 
-# table_html, text_block, patch_notes = get_webpage_data("https://wiki.albiononline.com/wiki/Sword")
-# print(patch_notes)
+# table_html, text_block, patch_notes = get_webpage_data("https://wiki.albiononline.com/wiki/Adept's_Graveguard_Helmet")
+# print(table_html)
+# print(len(table_html))

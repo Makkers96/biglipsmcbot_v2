@@ -288,19 +288,19 @@ def pull_combat_balance_notes(patch_content):
                     changes['patch_date'] = patch_content['patch_date']
                     changes['patch_name'] = patch_content['patch_name']
                     changes['patch_notes'] = combat_changes[key]
-                    helmets_hand_patch_notes.append(changes)
+                    helmets_patch_notes.append(changes)
                 if "Armor" in key:
                     changes = {}
                     changes['patch_date'] = patch_content['patch_date']
                     changes['patch_name'] = patch_content['patch_name']
                     changes['patch_notes'] = combat_changes[key]
-                    armors_hand_patch_notes.append(changes)
+                    armors_patch_notes.append(changes)
                 if "Shoe" in key:
                     changes = {}
                     changes['patch_date'] = patch_content['patch_date']
                     changes['patch_name'] = patch_content['patch_name']
                     changes['patch_notes'] = combat_changes[key]
-                    shoes_hand_patch_notes.append(changes)
+                    shoes_patch_notes.append(changes)
 
         else:
             print(f"Error. No combat balance changes found.")

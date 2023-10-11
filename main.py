@@ -211,6 +211,9 @@ def get_patch_name_from_question(user_question):
     
     User Question: how many sword changes were in btv 5?
     Patch Name: Beyond the Veil Patch 5
+    
+    User Question: what were the party ui fixes that came in into the fray 4?
+    Patch Name: Into the Fray Patch 4 / Arcane and Frost Patch
 
     User Question: {user_question}
     Patch Name:"""

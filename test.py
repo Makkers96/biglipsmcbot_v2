@@ -80,3 +80,16 @@ def get_webpage_data(url):
 # table_html, text_block, patch_notes = get_webpage_data("https://wiki.albiononline.com/wiki/Adept's_Graveguard_Helmet")
 # print(table_html)
 # print(len(table_html))
+
+request_result = requests.get("https://wiki.albiononline.com/wiki/Version_22.110.1")
+soup = BeautifulSoup(request_result.text, 'html.parser')
+
+patch_date_html = soup.find_all('tr')
+patch_date_string = ""
+for tag in patch_date_html:
+    if 'Date' in str(tag):
+        tag_with_text_date = tag.find_next()
+        tag_with_text_actual_date = tag_with_text_date.find_next('td')
+        patch_date_string = tag_with_text_actual_date.get_text().replace('\n', '')
+
+# print(patch_date_string)

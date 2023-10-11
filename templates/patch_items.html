@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Big Lips McBot Patch Items Questions</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            color: #000;
+            text-align: center;
+            font-family: Lucida Handwriting;
+        }
+        h2 {
+            color: #369ccd;
+            margin-bottom: 10px;
+        }
+        h3 {
+            color: #1e85bf;
+        }
+        p {
+            margin: 0 auto;
+            margin-bottom: 20px;
+            width: 70%;
+            font-size: 18px;
+            line-height: 18px;
+        }
+        textarea {
+            flex-grow: 1;
+        }
+        .send_button {
+            height: 80px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .form_container {
+            width: 30%;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: auto;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+        }
+        .bubble {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: inline-block;
+            padding: 20px;
+            position: relative;
+            margin: 0px auto 10px auto;
+            min-width: 400px;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://cdn.discordapp.com/attachments/255002176701726722/1160261582849319054/biglipsmcbot-removebg-preview.png?ex=653404cd&is=65218fcd&hm=ed3e9be08c2cc6b34e13875e0a2ab7befd669bd443947a25a7c0333ed964fffa&" alt="Logo">
+
+    <h2>Instructions:</h2>
+    <p>Ask any question about the patch history of any item in albion online. The Q/A will appear bellow.</p>
+    <p>For best results, be specific and use correct terminology (eg. Say light crossbow instead of lxbow). If you don't get a good answer, try asking in a different way.</p>
+    <p>The bot currently has no memory. If you want to ask a followup question, paraphrase the previous question/answer so the bot knows that you're talking about.</p>
+    <p>The bot sometimes hallucinates (makes up answers). Don't rely 100% on the accuracy of the answers.</p>
+
+    <form action="/patch_items" method="post">
+        <div class="form_container">
+            <textarea id="user_question" name="user_question" placeholder="Type your question here..." required></textarea>
+            <button value="Submit" class="send_button">Send</button>
+        </div>
+    </form>
+
+    {% if error_message %}
+        <h2>{{ error_message }}</h2>
+    {% endif %}
+
+    <h2>Question:</h2>
+    <div class="bubble">
+        <h3>{{ user_question }}</h3>
+    </div>
+    <h2>Answer:</h2>
+    <div class="bubble">
+         <h3>{{ llm_response }}</h3>
+    </div>
+
+    <form action="/" method="post">
+        <button value="Submit">Go Back Home</button>
+    </form>
+
+</body>
+</html>

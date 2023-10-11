@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Big Lips McBot General</title>
+    <title>Big Lips McBot Patch Questions</title>
     <style>
         body {
             background-color: #f0f8ff;
@@ -65,12 +65,13 @@
     <img src="https://cdn.discordapp.com/attachments/255002176701726722/1160261582849319054/biglipsmcbot-removebg-preview.png?ex=653404cd&is=65218fcd&hm=ed3e9be08c2cc6b34e13875e0a2ab7befd669bd443947a25a7c0333ed964fffa&" alt="Logo">
 
     <h2>Instructions:</h2>
-    <p>Ask any question about albion online. The Q/A will appear bellow.</p>
-    <p>For best results, be specific and use correct terminology (eg. Say elder's mace instead of T8 mace). If you don't get a good answer, try asking in a different way.</p>
+    <p>Ask any question about a specific patch in albion online. The Q/A will appear bellow.</p>
+    <p>You must use the patch name and/or date in your question. If you don't get a good answer, try asking in a different way.</p>
+    <p>Currently database only goes back to lands awaken update (24 November 2021). Anything from previous will not be able to retrieve.</p>
     <p>The bot currently has no memory. If you want to ask a followup question, paraphrase the previous question/answer so the bot knows that you're talking about.</p>
     <p>The bot sometimes hallucinates (makes up answers). Don't rely 100% on the accuracy of the answers.</p>
 
-    <form action="/patch_notes" method="post">
+    <form action="/specific_patch" method="post">
         <div class="form_container">
             <textarea id="user_question" name="user_question" placeholder="Type your question here..." required></textarea>
             <button value="Submit" class="send_button">Send</button>
@@ -89,11 +90,6 @@
     <div class="bubble">
          <h3>{{ llm_response }}</h3>
     </div>
-    <h2>Source:</h2>
-    <div class="bubble">
-         <h3>{{ source_link }}</h3>
-    </div>
-
 
     <form action="/" method="post">
         <button value="Submit">Go Back Home</button>

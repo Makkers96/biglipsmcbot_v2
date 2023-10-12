@@ -74,8 +74,8 @@ def get_webpage_data(url):
 
         # while balance tag isn't to next section and it isn't nothing (end of page)
         while 'h3' not in str(current_balance_tag) and current_balance_tag is not None:
-            # if tag is bold (its a title)
-            if "<p><b>" in str(current_balance_tag).replace('\n', '') and "</b></p>" in str(current_balance_tag).replace('\n', ''):
+            # if tag is bold or its an h4(its a title)
+            if "<p><b>" in str(current_balance_tag).replace('\n', '') and "</b></p>" in str(current_balance_tag).replace('\n', '') or "h4" in str(current_balance_tag):
                 # add the title to the title list
                 title_text = current_balance_tag.get_text()
                 list_of_titles.append(title_text)

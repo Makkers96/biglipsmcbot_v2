@@ -338,3 +338,10 @@ def pull_combat_balance_notes(patch_content):
         print(f"Error. No combat balance changes found.")
 
 
+def get_html(url):
+    request_result = requests.get(url)
+    soup = BeautifulSoup(request_result.text, 'html.parser')
+    return soup
+
+html = get_html("https://wiki.albiononline.com/wiki/Version_20.070.1")
+print(html)

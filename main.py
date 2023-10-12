@@ -347,3 +347,12 @@ def check_llm_patch_item_response(llm_patch_item_response):
         return None
     else:
         return llm_patch_item_response
+
+
+def format_list_for_context(context_list):
+    context_string = ""
+    for item in context_list:
+        for key, value in item.items():
+            context_string += f"{key}: {value}\n"
+        context_string += "\n"
+    return context_string

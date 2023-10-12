@@ -3,7 +3,8 @@ import os
 from main import search, get_url_from_search_results, remove_apostrophes, get_webpage_text, run_llm_general, \
     get_q_subjects, \
     read_html_tables, get_webpage_data, run_llm_patch, check_which_patch_name, get_patch_name_from_question, \
-    get_patch_date_from_question, check_which_patch_date, get_patch_item_from_question, check_llm_patch_item_response
+    get_patch_date_from_question, check_which_patch_date, get_patch_item_from_question, check_llm_patch_item_response, \
+    format_list_for_context
 from data import patches_data, arcane_patch_notes, axe_patch_notes, bow_patch_notes, crossbow_patch_notes, \
     curse_patch_notes, dagger_patch_notes, fire_patch_notes, frost_patch_notes, hammer_patch_notes, holy_patch_notes, \
     mace_patch_notes, nature_patch_notes, quarterstaff_patch_notes, spear_patch_notes, sword_patch_notes, \
@@ -91,9 +92,13 @@ def specific_patch():
                                            )
                 else:
                     print(f"This is the patch_for_context going in: {patch_for_context}")
+                    test_formatted_patch_info = format_list_for_context(patch_for_context)
+                    print(f"TEST: Formatted specific patch context: {test_formatted_patch_info}")
                     session['llm_response'] = run_llm_patch(session['user_question'], patch_for_context)
             else:
                 print(f"This is the patch_for_context going in: {patch_for_context}")
+                test_formatted_patch_info = format_list_for_context(patch_for_context)
+                print(f"TEST: Formatted specific patch context: {test_formatted_patch_info}")
                 session['llm_response'] = run_llm_patch(session['user_question'], patch_for_context)
 
             print(f"TEST TEST: This is the llm response in specific_patch: {session['llm_response']}")
@@ -159,7 +164,7 @@ def patch_items():
                     patch_item_context = spear_patch_notes
                 elif llm_patch_item_response == "Sword":
                     patch_item_context = sword_patch_notes
-                elif llm_patch_item_response == "Glove":
+                elif llm_patch_item_response == "Gloves":
                     patch_item_context = war_glove_patch_notes
                 elif llm_patch_item_response == "Off-hand":
                     patch_item_context = off_hand_patch_notes
@@ -177,8 +182,9 @@ def patch_items():
                                            llm_response=session['llm_response'],
                                            )
 
-                print(f"This is the patch_item_context going in: {patch_item_context}")
-                session['llm_response'] = run_llm_patch(session['user_question'], patch_item_context)
+                formatted_context = format_list_for_context(patch_item_context)
+                print(f"This is the patch_item_context going in: {formatted_context}")
+                session['llm_response'] = run_llm_patch(session['user_question'], formatted_context)
                 print(f"TEST TEST: This is the llm response in patch_item: {session['llm_response']}")
 
     return render_template("patch_items.html",

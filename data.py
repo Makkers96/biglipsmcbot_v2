@@ -271,7 +271,7 @@ def pull_combat_balance_notes(patch_content):
                     changes['patch_name'] = patch_content['patch_name']
                     changes['patch_notes'] = combat_changes[key]
                     sword_patch_notes.append(changes)
-                if "Warglove" in key:
+                if "glove" in key.lower():
                     changes = {}
                     changes['patch_date'] = patch_content['patch_date']
                     changes['patch_name'] = patch_content['patch_name']

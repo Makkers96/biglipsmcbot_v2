@@ -164,8 +164,9 @@ def run_llm_general(user_question, reference_tables, reference_text):
 
 def run_llm_patch(user_question, patch_data):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
-    If you do not know the answer to the question, provide any helpful information that you can about the question.
-    If the answer cannot be found in the information provided, respond that you cannot find the answer, and ask the user to ask their question in a different way.
+    Use only the information provided to answer the user's question. Never respond with an answer not found directly in the information provided.
+    When providing an answer, respond with all relevant information to the user's question.
+    If the answer cannot be found in the information provided, respond that you cannot find the answer, and ask the user to ask their question in a different way. Never make up an answer.
     Respond in full sentences. Time based questions should be answered assuming that the current date is January 1, 2024.
     
     Use the following information to answer the following question.

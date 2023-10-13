@@ -343,5 +343,33 @@ def get_html(url):
     soup = BeautifulSoup(request_result.text, 'html.parser')
     return soup
 
-html = get_html("https://wiki.albiononline.com/wiki/Version_20.070.1")
-print(html)
+# html = get_html("https://wiki.albiononline.com/wiki/Version_20.070.1")
+# print(html)
+
+
+
+
+def check_which_patch_name(list_of_patches, llm_patch_response):
+    if llm_patch_response == "None":
+        return None
+    else:
+        for patch in list_of_patches:
+            patch_name = patch['patch_name']
+            if patch_name == llm_patch_response:
+                return patch
+        return None
+
+
+
+def check_which_patch_date(list_of_patches, llm_date_response):
+    if llm_date_response == "None":
+        return None
+    else:
+        for patch in list_of_patches:
+            patch_date = patch['patch_date']
+            if patch_date == llm_date_response:
+                return patch
+        return None
+
+
+

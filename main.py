@@ -163,19 +163,30 @@ def run_llm_general(user_question, reference_tables, reference_text):
 
 
 def run_llm_patch(user_question, patch_data):
-    prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
-    Use only the information provided to answer the user's question. Never respond with an answer not found directly in the information provided.
-    When providing an answer, respond with all relevant information to the user's question.
-    If the answer cannot be found in the information provided, respond that you cannot find the answer, and ask the user to ask their question in a different way. Never make up an answer.
-    Respond in full sentences. Time based questions should be answered assuming that the current date is January 1, 2024.
+    # prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
+    # Use only the information provided to answer the user's question. Never respond with an answer not found directly in the information provided.
+    # When providing an answer, respond with all relevant information to the user's question.
+    # If the answer cannot be found in the information provided, respond that you cannot find the answer, and ask the user to ask their question in a different way. Never make up an answer.
+    # Respond in full sentences. Time based questions should be answered assuming that the current date is January 1, 2024.
+    #
+    # Use the following information to answer the following question.
+    #
+    # User Question: {user_question}
+    #
+    # Information: {patch_data}
+    #
+    # Big Lips McBot Answer:"""
+
+    prompt = f"""Use the information below to answer the following question. Only use the information provided, never respond with an answer not found directly in the information.
     
-    Use the following information to answer the following question.
-
-    User Question: {user_question}
-
-    Information: {patch_data}
-
-    Big Lips McBot Answer:"""
+    Question: {user_question}
+    
+    Information:
+        current_date: 1 January 2024
+        
+        {patch_data}
+        
+    Answer:"""
 
     completion = palm.generate_text(
         model=model,
@@ -186,6 +197,7 @@ def run_llm_patch(user_question, patch_data):
 
     result = completion.result
     return result
+
 
 def get_patch_name_from_question(user_question):
     prompt = f"""Take the following question and respond with the exact patch name found in the question from the following list.

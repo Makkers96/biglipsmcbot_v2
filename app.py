@@ -92,13 +92,13 @@ def specific_patch():
                                            llm_response=session['llm_response'],
                                            )
                 else:
-                    test_formatted_patch_info = format_dict_for_context(patch_for_context)
-                    print(f"TEST: Formatted specific patch context: {test_formatted_patch_info}")
-                    session['llm_response'] = run_llm_specific_patch(session['user_question'], patch_for_context)
+                    formatted_patch_context = format_dict_for_context(patch_for_context)
+                    print(f"TEST: Formatted specific patch context: {formatted_patch_context}")
+                    session['llm_response'] = run_llm_specific_patch(session['user_question'], formatted_patch_context)
             else:
-                test_formatted_patch_info = format_dict_for_context(patch_for_context)
-                print(f"TEST: Formatted specific patch context: {test_formatted_patch_info}")
-                session['llm_response'] = run_llm_specific_patch(session['user_question'], patch_for_context)
+                formatted_patch_context = format_dict_for_context(patch_for_context)
+                print(f"TEST: Formatted specific patch context: {formatted_patch_context}")
+                session['llm_response'] = run_llm_specific_patch(session['user_question'], formatted_patch_context)
 
             print(f"TEST TEST: This is the llm response in specific_patch: {session['llm_response']}")
 

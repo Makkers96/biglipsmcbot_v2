@@ -381,8 +381,8 @@ def format_list_for_context(context_list):
         for key, value in item.items():
             context_string += f"{key}: {value}\n"
         context_string += "\n"
-    if len(context_string) > 30000:
-        context_string = context_string[:30000]
+    if len(context_string) > 24000:
+        context_string = context_string[:24000]
     return context_string
 
 
@@ -411,7 +411,7 @@ def format_dict_for_context(context_dict):
         else:
             context_string += f"\n{key}:\n {value}\n"
 
-    if len(context_string) > 30000:
-        context_string = context_string[:30000]
+    if len(context_string) > 24000:
+        context_string = context_string[:24000]
 
     return context_string

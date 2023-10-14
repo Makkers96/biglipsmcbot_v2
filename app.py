@@ -92,19 +92,25 @@ def specific_patch():
                                            llm_response=session['llm_response'],
                                            )
                 else:
-                    print(f"This is the patch_for_context going in: {patch_for_context}")
                     test_formatted_patch_info = format_dict_for_context(patch_for_context)
                     print(f"TEST: Formatted specific patch context: {test_formatted_patch_info}")
                     session['llm_response'] = run_llm_specific_patch(session['user_question'], patch_for_context)
             else:
-                print(f"This is the patch_for_context going in: {patch_for_context}")
                 test_formatted_patch_info = format_dict_for_context(patch_for_context)
                 print(f"TEST: Formatted specific patch context: {test_formatted_patch_info}")
                 session['llm_response'] = run_llm_specific_patch(session['user_question'], patch_for_context)
 
             print(f"TEST TEST: This is the llm response in specific_patch: {session['llm_response']}")
 
-    session['llm_response'] = markdown.markdown(session['llm_response'])
+    if session['llm_response'] is None:
+        error_message = "There was an issue with bot response (response = None), please report in discord."
+        return render_template("specific_patch.html",
+                               error_message=error_message,
+                               user_question=session['user_question'],
+                               llm_response=session['llm_response'],
+                               )
+    else:
+        session['llm_response'] = markdown.markdown(session['llm_response'])
 
     return render_template("specific_patch.html",
                            user_question=session['user_question'],
@@ -190,7 +196,15 @@ def patch_items():
                 session['llm_response'] = run_llm_patch_item(session['user_question'], formatted_context)
                 print(f"TEST TEST: This is the llm response in patch_item: {session['llm_response']}")
 
-    session['llm_response'] = markdown.markdown(session['llm_response'])
+    if session['llm_response'] is None:
+        error_message = "There was an issue with bot response (response = None), please report in discord."
+        return render_template("patch_items.html",
+                               error_message=error_message,
+                               user_question=session['user_question'],
+                               llm_response=session['llm_response'],
+                               )
+    else:
+        session['llm_response'] = markdown.markdown(session['llm_response'])
 
     return render_template("patch_items.html",
                            user_question=session['user_question'],

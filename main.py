@@ -164,10 +164,10 @@ def run_llm_general(user_question, reference_tables, reference_text):
 
 def run_llm_patch_item(user_question, patch_data):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
-    Take the following question and find the exact item in found in the question. Then find all relevant information about that item in the following data. Lastly refer back to the question and use the relevant information you found to answer it in full.
+    Take the following question and find the exact item in found in the question. Then find all relevant information about that item in the following data. Lastly refer back to the question and use all of the relevant information you found to answer it in full.
 
     Refer to the patch_date for any time relevant questions.
-    If there is no information about the question in the data, respond simply with "I can't find the answer, please try asking in a different way."
+    If there is no information about the question in the data, DO NOT come up with an answer. Respond simply with "I can't find the answer, please try asking in a different way."
 
     Question: {user_question}
 
@@ -381,6 +381,8 @@ def format_list_for_context(context_list):
         for key, value in item.items():
             context_string += f"{key}: {value}\n"
         context_string += "\n"
+    if len(context_string) > 30000:
+        context_string = context_string[:30000]
     return context_string
 
 
@@ -408,5 +410,8 @@ def format_dict_for_context(context_dict):
                 context_string += f"\n{combat_key_str_no_lb}:\n {combat_value}\n"
         else:
             context_string += f"\n{key}:\n {value}\n"
+
+    if len(context_string) > 30000:
+        context_string = context_string[:30000]
 
     return context_string

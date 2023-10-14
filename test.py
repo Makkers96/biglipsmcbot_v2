@@ -19,15 +19,6 @@ def get_url_from_search_results(search_result):
     return url
 
 
-def format_list_for_context(context_list):
-    context_string = ""
-    for item in context_list:
-        for key, value in item.items():
-            context_string += f"{key}: {value}\n"
-        context_string += "\n"
-    return context_string
-
-
 from bs4 import BeautifulSoup
 import requests
 
@@ -301,7 +292,7 @@ def pull_combat_balance_notes(patch_content):
                     changes['patch_name'] = patch_content['patch_name']
                     changes['patch_notes'] = combat_changes[key]
                     sword_patch_notes.append(changes)
-                if "Warglove" in key:
+                if "glove" in key.lower():
                     changes = {}
                     changes['patch_date'] = patch_content['patch_date']
                     changes['patch_name'] = patch_content['patch_name']
@@ -373,3 +364,54 @@ def check_which_patch_date(list_of_patches, llm_date_response):
 
 
 
+test_patch_links = ['https://wiki.albiononline.com/wiki/Version_22.120.1', 'https://wiki.albiononline.com/wiki/Version_22.110.1', 'https://wiki.albiononline.com/wiki/Version_22.100.1', 'https://wiki.albiononline.com/wiki/Version_22.090.1', 'https://wiki.albiononline.com/wiki/Version_22.080.1', 'https://wiki.albiononline.com/wiki/Version_22.070.1']
+
+patches_data = []
+test_counter = 0
+for link in test_patch_links:
+    collected_data = get_webpage_data(link)
+    # add data to a list of all the patches
+    patches_data.append(collected_data)
+    # fill our weapon/armor patch notes data
+    pull_combat_balance_notes(collected_data)
+    # test
+    test_counter += 1
+    print(f"Finished with {link}. Total complete: {test_counter}")
+
+
+# need to create 2 versions of this as context for items is in a list, while context for patches is in a dictionary.
+def format_list_for_context(context_list):
+    context_string = ""
+    for item in context_list:
+        for key, value in item.items():
+            context_string += f"{key}:\n {value}\n"
+        context_string += "\n"
+    return context_string
+
+
+def format_dict_for_context(context_dict):
+    context_string = ""
+
+    # add patch name and date to the string
+    patch_name = context_dict['patch_name']
+    patch_date = context_dict['patch_date']
+
+    context_string += f"Patch Name: {patch_name}\n"
+    context_string += f"Patch Date: {patch_date}\n"
+
+    # add in patch notes
+    context_string += "\nPatch Notes:"
+
+    patch_notes = context_dict['patch_notes']
+    for key, value in patch_notes.items():
+        if key == 'Combat Balance Changes':
+            context_string += f"\nCombat Balance Changes:\n"
+            for combat_key, combat_value in value.items():
+                # get rid of linebreak at the end of the combat key
+                combat_key_str = str(combat_key)
+                combat_key_str_no_lb = combat_key_str.replace('\n', '')
+                context_string += f"\n{combat_key_str_no_lb}:\n {combat_value}\n"
+        else:
+            context_string += f"\n{key}:\n {value}\n"
+
+    return context_string

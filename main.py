@@ -164,9 +164,9 @@ def run_llm_general(user_question, reference_tables, reference_text):
 
 def run_llm_patch_item(user_question, patch_data):
     prompt = f"""You are a helpful virtual assistant named Big Lips McBot that answers questions about the video game albion online.
-    Take the following question and find the exact item in found in the question. Then find all relevant information about that item in the following data. Lastly refer back to the question and use all of the relevant information you found to answer it in full.
+    Take the following question and find the exact item found in the question. Then find all relevant information about that item in the following data. Lastly refer back to the question and use all of the relevant information you found to answer it in full.
 
-    Refer to the patch_date for any time relevant questions.
+    Refer to the patch_date for any time relevant questions. For example, if the question asks about the most recent change, refer to the most recent patch_date that has a change for the specific item.
     If there is no information about the question in the data, DO NOT come up with an answer. Respond simply with "I can't find the answer, please try asking in a different way."
 
     Question: {user_question}

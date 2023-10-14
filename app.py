@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session
+import markdown
 import os
 from main import search, get_url_from_search_results, remove_apostrophes, get_webpage_text, run_llm_general, \
     get_q_subjects, \
@@ -103,6 +104,8 @@ def specific_patch():
 
             print(f"TEST TEST: This is the llm response in specific_patch: {session['llm_response']}")
 
+    session['llm_response'] = markdown.markdown(session['llm_response'])
+
     return render_template("specific_patch.html",
                            user_question=session['user_question'],
                            llm_response=session['llm_response'],
@@ -186,6 +189,8 @@ def patch_items():
                 print(f"This is the patch_item_context going in: {formatted_context}")
                 session['llm_response'] = run_llm_patch_item(session['user_question'], formatted_context)
                 print(f"TEST TEST: This is the llm response in patch_item: {session['llm_response']}")
+
+    session['llm_response'] = markdown.markdown(session['llm_response'])
 
     return render_template("patch_items.html",
                            user_question=session['user_question'],

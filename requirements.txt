@@ -3,5 +3,5 @@ google-generativeai
 requests
 beautifulsoup4
 flask
-markupsafe
+markdown
 Gunicorn

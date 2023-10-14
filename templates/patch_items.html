@@ -87,7 +87,7 @@
     </div>
     <h2>Answer:</h2>
     <div class="bubble">
-         <h3>{{ llm_response }}</h3>
+         <h3>{{ llm_response | safe }}</h3>
     </div>
 
     <form action="/" method="post">

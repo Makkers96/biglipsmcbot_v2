@@ -364,8 +364,8 @@ def check_which_patch_date(list_of_patches, llm_date_response):
 
 
 
-# test_patch_links = ['https://wiki.albiononline.com/wiki/Version_22.120.1', 'https://wiki.albiononline.com/wiki/Version_22.110.1', 'https://wiki.albiononline.com/wiki/Version_22.100.1', 'https://wiki.albiononline.com/wiki/Version_22.090.1', 'https://wiki.albiononline.com/wiki/Version_22.080.1', 'https://wiki.albiononline.com/wiki/Version_22.070.1']
-#
+test_patch_links = ['https://wiki.albiononline.com/wiki/Version_22.120.1', 'https://wiki.albiononline.com/wiki/Version_22.110.1', 'https://wiki.albiononline.com/wiki/Version_22.100.1', 'https://wiki.albiononline.com/wiki/Version_22.090.1', 'https://wiki.albiononline.com/wiki/Version_22.080.1', 'https://wiki.albiononline.com/wiki/Version_22.070.1', 'https://wiki.albiononline.com/wiki/Version_22.060.1', 'https://wiki.albiononline.com/wiki/Version_22.050.1', 'https://wiki.albiononline.com/wiki/Version_22.040.1', 'https://wiki.albiononline.com/wiki/Version_21.030.1', 'https://wiki.albiononline.com/wiki/Version_21.020.1', 'https://wiki.albiononline.com/wiki/Version_21.010.1', 'https://wiki.albiononline.com/wiki/Version_21.000.1', 'https://wiki.albiononline.com/wiki/Version_20.070.1', 'https://wiki.albiononline.com/wiki/Version_20.060.1', 'https://wiki.albiononline.com/wiki/Version_20.050.1', 'https://wiki.albiononline.com/wiki/Version_20.040.1', 'https://wiki.albiononline.com/wiki/Version_20.030.1', 'https://wiki.albiononline.com/wiki/Version_20.020.1', 'https://wiki.albiononline.com/wiki/Version_20.010.1', 'https://wiki.albiononline.com/wiki/Version_20.000.1', 'https://wiki.albiononline.com/wiki/Version_19.080.1', 'https://wiki.albiononline.com/wiki/Version_19.070.1', 'https://wiki.albiononline.com/wiki/Version_19.060.1', 'https://wiki.albiononline.com/wiki/Version_19.050.1', 'https://wiki.albiononline.com/wiki/Version_19.040.1', 'https://wiki.albiononline.com/wiki/Version_19.030.1', 'https://wiki.albiononline.com/wiki/Version_19.020.1', 'https://wiki.albiononline.com/wiki/Version_19.010.1', 'https://wiki.albiononline.com/wiki/Version_19.000.1']
+
 # patches_data = []
 # test_counter = 0
 # for link in test_patch_links:
@@ -417,9 +417,9 @@ def format_dict_for_context(context_dict):
     return context_string
 
 
-test_patch = get_webpage_data("https://wiki.albiononline.com/wiki/Version_20.000.1")
-test_patch_organized = format_dict_for_context(test_patch)
-if len(test_patch_organized) > 30000:
-    test_patch_organized = test_patch_organized[:30000]
-print(test_patch_organized)
-print(len(test_patch_organized))
+# test_patch = get_webpage_data("https://wiki.albiononline.com/wiki/Version_20.000.1")
+# test_patch_organized = format_dict_for_context(test_patch)
+# if len(test_patch_organized) > 30000:
+#     test_patch_organized = test_patch_organized[:30000]
+# print(test_patch_organized)
+# print(len(test_patch_organized))

@@ -307,16 +307,16 @@ def pull_combat_balance_notes(patch_content):
     else:
         print(f"Error. No combat balance changes found.")
 
-# patch_links = get_patch_note_links()
-# short_patch_links = patch_links[:30]
+patch_links = get_patch_note_links()
+short_patch_links = patch_links[:30]
 # # test
 # print(short_patch_links)
 
-test_patch_links = ['https://wiki.albiononline.com/wiki/Version_22.120.1', 'https://wiki.albiononline.com/wiki/Version_22.110.1', 'https://wiki.albiononline.com/wiki/Version_22.100.1', 'https://wiki.albiononline.com/wiki/Version_22.090.1', 'https://wiki.albiononline.com/wiki/Version_22.080.1', 'https://wiki.albiononline.com/wiki/Version_22.070.1', 'https://wiki.albiononline.com/wiki/Version_22.060.1', 'https://wiki.albiononline.com/wiki/Version_22.050.1', 'https://wiki.albiononline.com/wiki/Version_22.040.1', 'https://wiki.albiononline.com/wiki/Version_21.030.1', 'https://wiki.albiononline.com/wiki/Version_21.020.1', 'https://wiki.albiononline.com/wiki/Version_21.010.1', 'https://wiki.albiononline.com/wiki/Version_21.000.1', 'https://wiki.albiononline.com/wiki/Version_20.070.1', 'https://wiki.albiononline.com/wiki/Version_20.060.1', 'https://wiki.albiononline.com/wiki/Version_20.050.1', 'https://wiki.albiononline.com/wiki/Version_20.040.1', 'https://wiki.albiononline.com/wiki/Version_20.030.1', 'https://wiki.albiononline.com/wiki/Version_20.020.1', 'https://wiki.albiononline.com/wiki/Version_20.010.1', 'https://wiki.albiononline.com/wiki/Version_20.000.1', 'https://wiki.albiononline.com/wiki/Version_19.080.1', 'https://wiki.albiononline.com/wiki/Version_19.070.1', 'https://wiki.albiononline.com/wiki/Version_19.060.1', 'https://wiki.albiononline.com/wiki/Version_19.050.1', 'https://wiki.albiononline.com/wiki/Version_19.040.1', 'https://wiki.albiononline.com/wiki/Version_19.030.1', 'https://wiki.albiononline.com/wiki/Version_19.020.1', 'https://wiki.albiononline.com/wiki/Version_19.010.1', 'https://wiki.albiononline.com/wiki/Version_19.000.1']
+# test_patch_links = ['https://wiki.albiononline.com/wiki/Version_22.120.1', 'https://wiki.albiononline.com/wiki/Version_22.110.1', 'https://wiki.albiononline.com/wiki/Version_22.100.1', 'https://wiki.albiononline.com/wiki/Version_22.090.1', 'https://wiki.albiononline.com/wiki/Version_22.080.1', 'https://wiki.albiononline.com/wiki/Version_22.070.1', 'https://wiki.albiononline.com/wiki/Version_22.060.1', 'https://wiki.albiononline.com/wiki/Version_22.050.1', 'https://wiki.albiononline.com/wiki/Version_22.040.1', 'https://wiki.albiononline.com/wiki/Version_21.030.1', 'https://wiki.albiononline.com/wiki/Version_21.020.1', 'https://wiki.albiononline.com/wiki/Version_21.010.1', 'https://wiki.albiononline.com/wiki/Version_21.000.1', 'https://wiki.albiononline.com/wiki/Version_20.070.1', 'https://wiki.albiononline.com/wiki/Version_20.060.1', 'https://wiki.albiononline.com/wiki/Version_20.050.1', 'https://wiki.albiononline.com/wiki/Version_20.040.1', 'https://wiki.albiononline.com/wiki/Version_20.030.1', 'https://wiki.albiononline.com/wiki/Version_20.020.1', 'https://wiki.albiononline.com/wiki/Version_20.010.1', 'https://wiki.albiononline.com/wiki/Version_20.000.1', 'https://wiki.albiononline.com/wiki/Version_19.080.1', 'https://wiki.albiononline.com/wiki/Version_19.070.1', 'https://wiki.albiononline.com/wiki/Version_19.060.1', 'https://wiki.albiononline.com/wiki/Version_19.050.1', 'https://wiki.albiononline.com/wiki/Version_19.040.1', 'https://wiki.albiononline.com/wiki/Version_19.030.1', 'https://wiki.albiononline.com/wiki/Version_19.020.1', 'https://wiki.albiononline.com/wiki/Version_19.010.1', 'https://wiki.albiononline.com/wiki/Version_19.000.1']
 
 patches_data = []
 test_counter = 0
-for link in test_patch_links:
+for link in short_patch_links:
     collected_data = get_webpage_data(link)
     # add data to a list of all the patches
     patches_data.append(collected_data)

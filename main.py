@@ -4,18 +4,42 @@ from duckduckgo_search import DDGS
 from bs4 import BeautifulSoup
 import requests
 import os
-import google.generativeai as palm
+import google.generativeai as genai
 
 # llm initialization
 key = os.getenv('google_key')
 
-palm.configure(api_key=key)
+genai.configure(api_key=key)
 
-models = [
-    m for m in palm.list_models() if "generateText" in m.supported_generation_methods
+generation_config = {
+    "temperature": 0,
+    "top_p": 1,
+    "top_k": 1,
+}
+
+safety_settings = [
+    {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "threshold": "BLOCK_NONE"
+    },
+    {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "threshold": "BLOCK_NONE"
+    },
+    {
+        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "threshold": "BLOCK_NONE"
+    },
+    {
+        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "threshold": "BLOCK_NONE"
+    }
 ]
 
-model = models[0].name
+
+llm = genai.GenerativeModel('gemini-pro',
+                            generation_config=generation_config,
+                            safety_settings=safety_settings)
 
 
 def search(user_question):
@@ -107,15 +131,17 @@ def get_q_subjects(question):
         Question: {question}
         Key Subject(s):"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=128,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 
 def read_html_tables(html_tables):
@@ -125,15 +151,17 @@ def read_html_tables(html_tables):
         
         Tables as Simple Text:"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=1024,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 
 def run_llm_general(user_question, reference_tables, reference_text):
@@ -151,15 +179,17 @@ def run_llm_general(user_question, reference_tables, reference_text):
 
     Big Lips McBot Answer:"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=512,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 
 def run_llm_patch_item(user_question, patch_data):
@@ -176,15 +206,17 @@ def run_llm_patch_item(user_question, patch_data):
 
     Answer:"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=512,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 
 def run_llm_specific_patch(user_question, patch_data):
@@ -200,15 +232,17 @@ def run_llm_specific_patch(user_question, patch_data):
 
     Answer:"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=512,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 
 def get_patch_name_from_question(user_question):
@@ -244,15 +278,17 @@ def get_patch_name_from_question(user_question):
     User Question: {user_question}
     Patch Name:"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=128,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 def check_which_patch_name(list_of_patches, llm_patch_response):
     if llm_patch_response == "None":
@@ -284,15 +320,17 @@ def get_patch_date_from_question(user_question):
     User Question: {user_question}
     Patch Date:"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=128,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 
 def check_which_patch_date(list_of_patches, llm_date_response):
@@ -357,15 +395,17 @@ def get_patch_item_from_question(user_question):
     User Question: {user_question}
     Item Type:"""
 
-    completion = palm.generate_text(
-        model=model,
+    result = llm.generate_content(
         prompt=prompt,
-        temperature=0,
         max_output_tokens=128,
     )
 
-    result = completion.result
-    return result
+    if result:
+        response = result.text
+    else:
+        response = "Couldn't get a response from the llm."
+
+    return response
 
 
 def check_llm_patch_item_response(llm_patch_item_response):

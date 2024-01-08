@@ -1,5 +1,6 @@
 duckduckgo-search
 google-generativeai
+google-ai-generativelanguage
 requests
 beautifulsoup4
 flask
